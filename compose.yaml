@@ -1,0 +1,42 @@
+services:
+  web:
+    build:
+      context: .
+    volumes:
+      # Mount the local src folder to the src folder in the container image to make the Django 
+      # runserver aware of changes to the local code base. This requires starting the compose
+      # services from the root folder of the project!
+      # !NOTE! If changes are made to database models and they require database migrations,
+      # then the image should be rebuilt and the service restarted!
+      - ./src:/app/src:ro
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    command: >
+      sh -c "
+        uv run python src/manage.py migrate &&
+        uv run python copy_data_from_csv.py &&
+        uv run python src/manage.py runserver 0.0.0.0:8000
+      "
+  
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: prime_bank
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./dataset:/dataset
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d prime_bank"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:

@@ -1,0 +1,33 @@
+[project]
+name = "prime-bank"
+version = "0.1.0"
+description = "sample project for working with DRF"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "django>=6.1",
+    "djangorestframework>=3.18.0",
+    "psycopg[binary]>=3.3.4",  # uv add 'psycopg[binary]'
+]
+
+[tool.ruff]
+line-length = 80
+
+[tool.ruff.format]
+line-ending = "auto"
+quote-style = "double"
+
+[tool.ruff.lint]
+select = [
+    "E", # pycodestyle: style convetions in PEP 8, e.g. indentations, whitespaces, blank lines, imports
+    "F", # pyflakes: unused imports, etc.
+    "I", # isort: sort imports
+]
+
+ignore = [
+    "E501",  # checks for lines that exceed the specified maximum character length
+]
+
+[tool.ruff.lint.isort]
+lines-after-imports = 2  # blank lines after the last import statement
+lines-between-types = 1  # blank lines between different import blocks

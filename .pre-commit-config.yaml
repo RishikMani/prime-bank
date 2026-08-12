@@ -1,0 +1,27 @@
+# Pre-commit hooks are useful for identifying simple issues before submission to code review. These
+# hooks are run on every commit to automatically point out issues in code.
+
+exclude: '(^|/)migrations/.*\.py$'
+
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-ast
+        description: simply checks whether the files parse as valid python.
+      - id: check-toml
+        description: checks TOML files for parseable syntax.
+      - id: check-yaml
+        description: checks YAML files for parseable syntax.
+      - id: debug-statements
+        description: checks for debugger imports and breakpoint() calls in python source.
+      - id: end-of-file-fixer
+        description: ensures that a file is either empty, or ends with one newline.
+      - id: requirements-txt-fixer
+        description: sorts entries
+-   repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.2
+    hooks:
+      - id: ruff
+        args: [ --fix ]  # enable lint fixes for general problems
+      - id: ruff-format
