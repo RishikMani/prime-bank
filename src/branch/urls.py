@@ -1,6 +1,7 @@
 from django.urls import path
 
 from .views import (
+    BranchByIFSCView,
     BranchCountByCityView,
     BranchCountByStateView,
     BranchCountPerCityView,
@@ -36,5 +37,8 @@ urlpatterns = [
         "branch-count-per-state/",
         BranchCountPerStateView.as_view(),
         name="branch_count_per_state",
+    ),
+    path(
+        "search/<str:code>", BranchByIFSCView.as_view(), name="branch_by_ifsc"
     ),
 ]

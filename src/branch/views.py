@@ -46,7 +46,7 @@ class BranchCountByCityView(ListAPIView):
         city = self.kwargs["city"]
 
         return (
-            Branch.objects.filter(Q(city__icontains=city))
+            Branch.objects.filter(city__icontains=city)
             .values("city")
             .annotate(count=Count("id"))
             .order_by("-count")
@@ -93,3 +93,14 @@ class BranchCountPerStateView(ListAPIView):
         .annotate(count=Count("id"))
         .order_by("-count")
     )
+
+
+class BranchByIFSCView(ListAPIView):
+    """Search branch using IFSC"""
+
+    serializer_class = BranchSerializer
+
+    def get_queryset(self):
+        ifsc = self.kwargs["code"]
+
+        return Branch.objects.filter(ifsc_code__icontains=ifsc)
