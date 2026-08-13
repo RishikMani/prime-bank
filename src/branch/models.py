@@ -9,7 +9,7 @@ class Branch(models.Model):
     city = models.CharField(max_length=50)
     state = models.CharField(max_length=50)
     opened_date = models.DateField()
-    ifsc_code = models.CharField(max_length=12)
+    ifsc = models.CharField(max_length=12)
 
     class Meta:
         db_table = "branch"
