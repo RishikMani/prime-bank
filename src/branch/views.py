@@ -1,11 +1,20 @@
 from django.db.models import Count, Q
+from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import Branch
-from .serializers import BranchCountSerializer, BranchSerializer
+from .serializers import (
+    BranchCountByCitySerializer,
+    BranchCountByStateSerializer,
+    BranchCountPerCitySerializer,
+    BranchCountPerStateSerializer,
+    BranchSerializer,
+)
 
 
+# Leaving this class intentionally subclassing APIView so that I can later
+# compare generic views with APIViews.
 class BranchListView(APIView):
     """View to list all the bank branches"""
 
@@ -28,16 +37,14 @@ class BranchListByCityOrStateView(BranchListView):
         )
 
 
-class BranchCountByCityView(APIView):
+class BranchCountByCityView(ListAPIView):
     """Returns the branch count provided a city name"""
 
-    def get(self, request, **kwargs):
-        branches = self.get_queryset()
-        serializer = BranchCountSerializer(branches, many=True)
-        return Response(serializer.data)
+    serializer_class = BranchCountByCitySerializer
 
     def get_queryset(self):
         city = self.kwargs["city"]
+
         return (
             Branch.objects.filter(Q(city__icontains=city))
             .values("city")
@@ -46,15 +53,43 @@ class BranchCountByCityView(APIView):
         )
 
 
-class BranchCountPerCityView(APIView):
+class BranchCountPerCityView(ListAPIView):
     """Returns the branch count of all the cities"""
 
-    def get(self, request):
-        branches = (
+    serializer_class = BranchCountPerCitySerializer
+
+    def get_queryset(self):
+        return (
             Branch.objects.all()
             .values("city")
             .annotate(count=Count("id"))
             .order_by("-count")
         )
-        serializer = BranchCountSerializer(branches, many=True)
-        return Response(serializer.data)
+
+
+class BranchCountByStateView(ListAPIView):
+    """Returns the branch count provided a state name"""
+
+    serializer_class = BranchCountByStateSerializer
+
+    def get_queryset(self):
+        state = self.kwargs["state"]
+
+        return (
+            Branch.objects.filter(Q(state__icontains=state))
+            .values("state")
+            .annotate(count=Count("id"))
+            .order_by("-count")
+        )
+
+
+class BranchCountPerStateView(ListAPIView):
+    """Returns the branch count of all the states"""
+
+    serializer_class = BranchCountPerStateSerializer
+    queryset = (
+        Branch.objects.all()
+        .values("state")
+        .annotate(count=Count("id"))
+        .order_by("-count")
+    )

@@ -2,7 +2,9 @@ from django.urls import path
 
 from .views import (
     BranchCountByCityView,
+    BranchCountByStateView,
     BranchCountPerCityView,
+    BranchCountPerStateView,
     BranchListByCityOrStateView,
     BranchListView,
 )
@@ -16,13 +18,23 @@ urlpatterns = [
         name="branch_by_city_or_state",
     ),
     path(
-        "total-branch-count-by-city/<str:city>/",
+        "branch-count-city/<str:city>/",
         BranchCountByCityView.as_view(),
         name="branch_count_by_city",
     ),
     path(
-        "total-branch-count-per-city/",
+        "branch-count-per-city/",
         BranchCountPerCityView.as_view(),
         name="branch_count_per_city",
+    ),
+    path(
+        "branch-count-state/<str:state>/",
+        BranchCountByStateView.as_view(),
+        name="branch_count_by_city",
+    ),
+    path(
+        "branch-count-per-state/",
+        BranchCountPerStateView.as_view(),
+        name="branch_count_per_state",
     ),
 ]

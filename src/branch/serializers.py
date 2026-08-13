@@ -9,6 +9,19 @@ class BranchSerializer(serializers.ModelSerializer):
         exclude = ["id"]
 
 
-class BranchCountSerializer(serializers.Serializer):
+class BranchCountByCitySerializer(serializers.Serializer):
     city = serializers.CharField()
     count = serializers.IntegerField()
+
+
+class BranchCountPerCitySerializer(BranchCountByCitySerializer):
+    pass
+
+
+class BranchCountByStateSerializer(serializers.Serializer):
+    state = serializers.CharField()
+    count = serializers.IntegerField()
+
+
+class BranchCountPerStateSerializer(BranchCountByStateSerializer):
+    pass
