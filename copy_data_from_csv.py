@@ -21,7 +21,7 @@ with psycopg.connect(**DB_CONFIG) as conn:
             for row in reader:
                 cur.execute(
                     """
-                    INSERT INTO branch (id, name, city, state, opened_date, ifsc_code)
+                    INSERT INTO branch (id, name, city, state, opened_date, ifsc)
                     VALUES (%s, %s, %s, %s, %s, %s)
                     """,
                     (
@@ -30,7 +30,7 @@ with psycopg.connect(**DB_CONFIG) as conn:
                         row["city"],
                         row["state"],
                         row["opened_date"],
-                        row["ifsc_code"],
+                        row["ifsc"],
                     ),
                 )
 

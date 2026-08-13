@@ -103,4 +103,4 @@ class BranchByIFSCView(ListAPIView):
     def get_queryset(self):
         ifsc = self.kwargs["code"]
 
-        return Branch.objects.filter(ifsc_code__icontains=ifsc)
+        return Branch.objects.filter(ifsc__icontains=ifsc)
