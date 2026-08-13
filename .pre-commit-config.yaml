@@ -5,7 +5,7 @@ exclude: '(^|/)migrations/.*\.py$'
 
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+    rev: v6.0.0
     hooks:
       - id: check-ast
         description: simply checks whether the files parse as valid python.
@@ -20,7 +20,7 @@ repos:
       - id: requirements-txt-fixer
         description: sorts entries
 -   repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.8.2
+    rev: v0.16.2
     hooks:
       - id: ruff
         args: [ --fix ]  # enable lint fixes for general problems
