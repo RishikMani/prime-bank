@@ -2,8 +2,6 @@ from django.db import models
 
 
 class Branch(models.Model):
-    """Forcing change"""
-
     id = models.SmallIntegerField(primary_key=True)
     name = models.CharField(max_length=50)
     city = models.CharField(max_length=50)

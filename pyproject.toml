@@ -10,6 +10,12 @@ dependencies = [
     "psycopg[binary]>=3.3.4",  # uv add 'psycopg[binary]'
 ]
 
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "pytest-django>=4.14.0",
+]
+
 [tool.ruff]
 line-length = 80
 
@@ -31,3 +37,7 @@ ignore = [
 [tool.ruff.lint.isort]
 lines-after-imports = 2  # blank lines after the last import statement
 lines-between-types = 1  # blank lines between different import blocks
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "base.settings"
+pythonpath = ['src']
