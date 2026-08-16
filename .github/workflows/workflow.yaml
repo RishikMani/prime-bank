@@ -28,5 +28,6 @@ jobs:
       - name: Run Tests
         env:
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/test_db
+        working-directory: ./src
         run: |
           python manage.py test
