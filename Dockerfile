@@ -14,8 +14,8 @@ WORKDIR /app
 # Install dependencies first.
 # This layer will be cached until pyproject.toml or uv.lock changes.
 COPY pyproject.toml uv.lock ./
-COPY dataset ./dataset
-COPY copy_data_from_csv.py ./
+COPY dataset dataset
+COPY scripts scripts
 
 RUN uv sync --locked --no-install-project
 
