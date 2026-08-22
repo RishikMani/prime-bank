@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     "rest_framework",
     "drf_spectacular",
     "branch",
+    "account",
+    "customer",
 ]
 
 REST_FRAMEWORK = {
