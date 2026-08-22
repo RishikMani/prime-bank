@@ -1,4 +1,4 @@
-from django.db.models import Avg, Count, Sum
+from django.db.models import Avg, Count, Max, Sum
 from rest_framework.generics import GenericAPIView, ListAPIView
 from rest_framework.response import Response
 
@@ -10,6 +10,7 @@ from .serializers import (
     AccountCountByStatusSerializer,
     AccountsCountPerBranchSerializer,
     AverageBalanceSerializer,
+    MaximumAccountPerAccountTypeSerializer,
     TotalAccountBalanceByAccountTypeSerializer,
     TotalAccountsCountSerializer,
 )
@@ -77,4 +78,15 @@ class AccountsCountPerBranchView(ListAPIView):
             Branch.objects.values("id", "branch_name")
             .annotate(count=Count("accounts"))
             .order_by("-count")
+        )
+
+
+class MaximumBalancePerAccountTypeView(ListAPIView):
+    serializer_class = MaximumAccountPerAccountTypeSerializer
+
+    def get_queryset(self):
+        return (
+            Account.objects.values("type")
+            .annotate(balance=Max("balance"))
+            .order_by("type")
         )

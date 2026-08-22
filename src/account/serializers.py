@@ -27,3 +27,9 @@ class AverageBalanceSerializer(serializers.Serializer):
 class AccountsCountPerBranchSerializer(TotalAccountsCountSerializer):
     id = serializers.IntegerField()
     branch_name = serializers.CharField()
+
+
+class MaximumAccountPerAccountTypeSerializer(
+    TotalAccountBalanceByAccountTypeSerializer
+):
+    pass

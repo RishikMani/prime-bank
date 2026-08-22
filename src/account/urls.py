@@ -5,6 +5,7 @@ from .views import (
     AccountCountByStatusView,
     AccountsCountPerBranchView,
     AverageBalanceView,
+    MaximumBalancePerAccountTypeView,
     TotalAccountBalanceByAccountTypeView,
     TotalAccountsCountView,
 )
@@ -29,14 +30,19 @@ urlpatterns = [
     path(
         "total-number-of-accounts/",
         TotalAccountsCountView.as_view(),
-        name="total-number-of-accounts",
+        name="total_number_of_accounts",
     ),
     path(
-        "average-balance/", AverageBalanceView.as_view(), name="average-balance"
+        "average-balance/", AverageBalanceView.as_view(), name="average_balance"
     ),
     path(
         "accounts-count-per-branch/",
         AccountsCountPerBranchView.as_view(),
         name="accounts-count-per-branch",
+    ),
+    path(
+        "maximum-balance-per-account-type/",
+        MaximumBalancePerAccountTypeView.as_view(),
+        name="maximum_balance_per_account_type",
     ),
 ]
