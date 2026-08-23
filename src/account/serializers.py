@@ -29,5 +29,5 @@ class AccountsCountPerBranchSerializer(TotalNumberOfAccountsOpenedSerializer):
     branch_name = serializers.CharField()
 
 
-class MaximumBalancePerAccountTypeView(TotalNumberOfAccountsOpenedSerializer):
-    pass
+class MaximumBalancePerAccountTypeSerializer(serializers.Serializer):
+    balance = serializers.DecimalField(max_digits=10, decimal_places=2)

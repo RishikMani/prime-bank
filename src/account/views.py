@@ -12,7 +12,7 @@ from .serializers import (
     AccountsCountByStatusSerializer,
     AccountsCountPerBranchSerializer,
     AverageBalanceSerializer,
-    MaximumBalancePerAccountTypeView,
+    MaximumBalancePerAccountTypeSerializer,
     TotalAvailableBalanceByAccountTypeSerializer,
     TotalNumberOfAccountsOpenedSerializer,
 )
@@ -130,7 +130,7 @@ class MaximumBalancePerAccountTypeView(GenericAPIView):
     e.g. Current -> 456730.82, Fixed Deposit -> 539198.59
     """
 
-    serializer_class = MaximumBalancePerAccountTypeView
+    serializer_class = MaximumBalancePerAccountTypeSerializer
 
     def get(self, request):
         rows = (
