@@ -16,18 +16,18 @@ def branches():
         [
             Branch(
                 id=1,
-                name="Main Branch",
+                branch_name="Main Branch",
                 city="Mumbai",
                 state="Maharashtra",
-                opened_date="2020-01-01",
+                opening_date="2020-01-01",
                 ifsc="ABCD0123456",
             ),
             Branch(
                 id=2,
-                name="Central Branch",
+                branch_name="Central Branch",
                 city="Delhi",
                 state="Delhi",
-                opened_date="2021-06-15",
+                opening_date="2021-06-15",
                 ifsc="EFGH0123456",
             ),
         ]
