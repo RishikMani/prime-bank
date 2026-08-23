@@ -18,6 +18,11 @@ from .serializers import (
 
 # Create your views here.
 class AccountCountByStatusView(ListAPIView):
+    """Get the total number of accounts based on the their current status
+
+    e.g. Active -> 80707, Dormant -> 9526, Closed -> 4767
+    """
+
     serializer_class = AccountCountByStatusSerializer
 
     def get_queryset(self):
@@ -30,6 +35,11 @@ class AccountCountByStatusView(ListAPIView):
 
 
 class AccountCountByAccountTypeView(ListAPIView):
+    """Get the total number of accounts opened for different account types
+
+    e.g. Savings -> 47557, Current -> 19021
+    """
+
     serializer_class = AccountCountByAccountTypeSerializer
 
     def get_queryset(self):
@@ -42,6 +52,11 @@ class AccountCountByAccountTypeView(ListAPIView):
 
 
 class TotalAccountBalanceByAccountTypeView(ListAPIView):
+    """Get the amount of balance for different account types
+
+    e.g. Savings -> 2187486599.91, Salary -> 644917483.55
+    """
+
     serializer_class = TotalAccountBalanceByAccountTypeSerializer
 
     def get_queryset(self):
@@ -54,6 +69,8 @@ class TotalAccountBalanceByAccountTypeView(ListAPIView):
 
 
 class TotalAccountsCountView(GenericAPIView):
+    """Get total number of accounts opened"""
+
     serializer_class = TotalAccountsCountSerializer
 
     def get(self, request):
@@ -61,6 +78,8 @@ class TotalAccountsCountView(GenericAPIView):
 
 
 class AverageBalanceView(GenericAPIView):
+    """Get the average balance across all accounts"""
+
     serializer_class = AverageBalanceSerializer
 
     def get(self, request):
@@ -71,6 +90,11 @@ class AverageBalanceView(GenericAPIView):
 
 
 class AccountsCountPerBranchView(ListAPIView):
+    """Get the number of accounts opened in any branch
+
+    e.g. Jaipur Branch 6 -> 700, Chandigarh Branch 6 -> 682
+    """
+
     serializer_class = AccountsCountPerBranchSerializer
 
     def get_queryset(self):
@@ -82,6 +106,11 @@ class AccountsCountPerBranchView(ListAPIView):
 
 
 class MaximumBalancePerAccountTypeView(ListAPIView):
+    """Get the maximum balance per account type
+
+    e.g. Current -> 456730.82, Fixed Deposit -> 539198.59
+    """
+
     serializer_class = MaximumAccountPerAccountTypeSerializer
 
     def get_queryset(self):
