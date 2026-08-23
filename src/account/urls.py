@@ -1,35 +1,35 @@
 from django.urls import path
 
 from .views import (
-    AccountCountByAccountTypeView,
-    AccountCountByStatusView,
+    AccountsCountByAccountTypeView,
+    AccountsCountByStatusView,
     AccountsCountPerBranchView,
     AverageBalanceView,
     MaximumBalancePerAccountTypeView,
-    TotalAccountBalanceByAccountTypeView,
-    TotalAccountsCountView,
+    TotalAvailableBalanceByAccountTypeView,
+    TotalNumberOfAccountsOpenedView,
 )
 
 
 urlpatterns = [
     path(
         "count-by-status/",
-        AccountCountByStatusView.as_view(),
+        AccountsCountByStatusView.as_view(),
         name="count_by_status",
     ),
     path(
         "count-by-account-type/",
-        AccountCountByAccountTypeView.as_view(),
+        AccountsCountByAccountTypeView.as_view(),
         name="count_by_account_type",
     ),
     path(
         "total-balance-per-account-type/",
-        TotalAccountBalanceByAccountTypeView.as_view(),
+        TotalAvailableBalanceByAccountTypeView.as_view(),
         name="total_balance_per_account_type",
     ),
     path(
         "total-number-of-accounts/",
-        TotalAccountsCountView.as_view(),
+        TotalNumberOfAccountsOpenedView.as_view(),
         name="total_number_of_accounts",
     ),
     path(

@@ -1,22 +1,22 @@
 from rest_framework import serializers
 
 
-class AccountCountByStatusSerializer(serializers.Serializer):
+class AccountsCountByStatusSerializer(serializers.Serializer):
     status = serializers.CharField()
     count = serializers.IntegerField()
 
 
-class AccountCountByAccountTypeSerializer(serializers.Serializer):
+class AccountsCountByAccountTypeSerializer(serializers.Serializer):
     type = serializers.CharField(max_length=20)
     count = serializers.IntegerField()
 
 
-class TotalAccountBalanceByAccountTypeSerializer(serializers.Serializer):
+class TotalAvailableBalanceByAccountTypeSerializer(serializers.Serializer):
     type = serializers.CharField(max_length=20)
     balance = serializers.DecimalField(max_digits=20, decimal_places=2)
 
 
-class TotalAccountsCountSerializer(serializers.Serializer):
+class TotalNumberOfAccountsOpenedSerializer(serializers.Serializer):
     count = serializers.IntegerField()
 
 
@@ -24,12 +24,10 @@ class AverageBalanceSerializer(serializers.Serializer):
     average_balance = serializers.IntegerField()
 
 
-class AccountsCountPerBranchSerializer(TotalAccountsCountSerializer):
+class AccountsCountPerBranchSerializer(TotalNumberOfAccountsOpenedSerializer):
     id = serializers.IntegerField()
     branch_name = serializers.CharField()
 
 
-class MaximumAccountPerAccountTypeSerializer(
-    TotalAccountBalanceByAccountTypeSerializer
-):
+class MaximumBalancePerAccountTypeView(TotalNumberOfAccountsOpenedSerializer):
     pass
