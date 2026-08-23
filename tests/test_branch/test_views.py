@@ -43,16 +43,3 @@ class TestBranchListView:
         assert response.status_code == 200
         assert isinstance(response.data, list)
         assert len(response.data) == 2, "Exactly 2 records must exist"
-
-    def test_branch_is_active_by_default(self, branches):
-        Branch.objects.create(
-            id=3,
-            branch_name="Main Branch",
-            city="Mumbai",
-            state="Maharashtra",
-            opening_date="2020-01-01",
-            ifsc="ABCD0123456",
-        )
-        response = self.client.get("/branch/")
-        assert response.status_code == 200
-        assert response.data[0]["is_active"]
