@@ -18,7 +18,6 @@ from .serializers import (
 )
 
 
-# Create your views here.
 class AccountsCountByStatusView(GenericAPIView):
     """Get the total number of accounts based on the their current status.
 

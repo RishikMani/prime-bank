@@ -5,6 +5,7 @@ description = "sample project for working with DRF"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
+    "bharat>=0.1",
     "django>=6.1",
     "djangorestframework>=3.18.0",
     "drf-spectacular>=0.30.0",
