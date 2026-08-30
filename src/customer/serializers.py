@@ -18,6 +18,11 @@ class GetAllCustomersFromAStateSerializer(AllCustomersListSerializer):
     pass
 
 
+class CustomerCountPerStateSerializer(serializers.Serializer):
+    state = serializers.CharField(max_length=20)
+    count = serializers.IntegerField()
+
+
 class CustomerWithLowestCreditScoreSerializer(AllCustomersListSerializer):
     pass
 
@@ -39,4 +44,12 @@ class CustomerWithHighestAnnualIncomeSerializer(AllCustomersListSerializer):
 
 
 class CustomersBelowAnnualIncomeSerializer(AllCustomersListSerializer):
+    pass
+
+
+class CustomersAboveAnnualIncomeSerializer(AllCustomersListSerializer):
+    pass
+
+
+class CustomersWithinAnnualIncomeRangeSerializer(AllCustomersListSerializer):
     pass

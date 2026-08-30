@@ -7,7 +7,10 @@ from .models import Customer
 from .serializers import (
     AllCustomersListSerializer,
     CustomerCountPerGenderSerializer,
+    CustomerCountPerStateSerializer,
+    CustomersAboveAnnualIncomeSerializer,
     CustomersBelowAnnualIncomeSerializer,
+    CustomersWithinAnnualIncomeRangeSerializer,
     CustomersWithinCreditScoreRangeSerializer,
     CustomerWithHighestAnnualIncomeSerializer,
     CustomerWithHighestCreditScoreSerializer,
@@ -52,10 +55,26 @@ class GetAllCustomersFromAStateView(ListAPIView):
     def get_queryset(self):
         state = self.kwargs["state"]
 
+        # TODO: give correct error when non-existing state provided
         if state not in Customer.StateChoices.values:
             print("wrong state chosen")
 
         return Customer.objects.filter(Q(state__icontains=state))
+
+
+class CustomerCountPerStateView(GenericAPIView):
+    serializer_class = CustomerCountPerStateSerializer
+
+    def get(self, request):
+        rows = (
+            Customer.objects.values("state")
+            .annotate(count=Count("state"))
+            .order_by("state")
+        )
+
+        state = {row["state"]: row["count"] for row in rows}
+
+        return Response({"customers_per_state": state})
 
 
 class CustomerWithLowestCreditScoreView(GenericAPIView):
@@ -131,3 +150,38 @@ class CustomersBelowAnnualIncomeView(ListAPIView):
             "income"
         )
         return customers
+
+
+class CustomersAboveAnnualIncomeView(ListAPIView):
+    serializer_class = CustomersAboveAnnualIncomeSerializer
+    pagination_class = CustomerPagination
+
+    def get_queryset(self):
+        annual_income = self.kwargs["annual_income"]
+        customers = Customer.objects.filter(income__gte=annual_income).order_by(
+            "income"
+        )
+        return customers
+
+
+class CustomersWithinAnnualIncomeRangeView(ListAPIView):
+    serializer_class = CustomersWithinAnnualIncomeRangeSerializer
+    pagination_class = CustomerPagination
+    pagination_class.page_size = 200
+
+    def get_queryset(self):
+        min_income = self.request.query_params["min_income"]
+        max_income = self.request.query_params["max_income"]
+
+        # TODO: what if both are empty
+        if min_income and max_income:
+            customers = Customer.objects.filter(
+                income__gte=min_income,
+                income__lte=max_income,
+            )
+        elif min_income and not max_income:
+            customers = Customer.objects.filter(income__gte=min_income)
+        else:
+            customers = Customer.objects.filter(income__lte=max_income)
+
+        return customers.order_by("income")
